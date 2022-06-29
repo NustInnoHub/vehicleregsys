@@ -6,10 +6,9 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import Container from "@mui/material/Container";
 import { Outlet, useLocation } from "react-router-dom";
-import { MainListItems, secondaryListItems } from "../components/listItems";
+import { MainListItems } from "../components/listItems";
 import { Avatar } from "@mui/material";
 import { Navigation } from "../components/Navigation";
 
@@ -41,7 +40,7 @@ const Drawer = styled(MuiDrawer, {
   }
 }));
 
-const mdTheme = createTheme();
+const mdTheme = createTheme({});
 
 function DashboardContent() {
   const location = useLocation();
@@ -82,8 +81,6 @@ function DashboardContent() {
           </Box>
           <List component="nav">
             <MainListItems path={path} open={open} />
-            <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
           </List>
         </Drawer>
         <Box

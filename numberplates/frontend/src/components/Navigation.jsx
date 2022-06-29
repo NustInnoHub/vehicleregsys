@@ -1,13 +1,12 @@
 import React from "react";
 import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Box, Button, styled, Toolbar, Typography } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import { useAuth } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
+// import NotificationMenu from "./NotificationMenu";
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open"
@@ -28,7 +27,9 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const titles = {
-  "new-registration": "New Vehicle Registration"
+  "new-registration": "New Vehicle Registration",
+  "registered-vehicles": "Registered Vehicles",
+  "vehicle-edit": "Vehicle Edit"
 };
 
 export const Navigation = ({ open, toggleDrawer, path }) => {
@@ -64,11 +65,7 @@ export const Navigation = ({ open, toggleDrawer, path }) => {
           {title}
         </Typography>
         <Box sx={{ display: { xs: "none", sm: "block" } }}>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          {/* <NotificationMenu /> */}
           <Button
             sx={{ ml: 2, fontWeight: 500, textTransform: "capitalize" }}
             color="inherit"

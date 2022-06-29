@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import LogIn from "./pages/Login";
 import NewReg from "./pages/NewReg";
 import RregisteredVehicles from "./pages/RregisteredVehicles";
+import VehicleEdit from "./pages/VehicleEdit";
 
 export default function Router() {
   const routes = useRoutes([
@@ -28,6 +29,10 @@ export default function Router() {
         {
           path: "registered-vehicles",
           element: <RregisteredVehicles />
+        },
+        {
+          path: "vehicle-edit:id",
+          element: <VehicleEdit />
         }
       ]
     },

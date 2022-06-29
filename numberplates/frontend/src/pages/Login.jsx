@@ -50,7 +50,7 @@ export default function LogIn() {
 
   return (
     <Container
-      sx={{ boxShadow: 2, pb: 1, borderRadius: 5 }}
+      sx={{ boxShadow: 2, pb: 1, borderRadius: 4 }}
       component="main"
       maxWidth="xs"
     >

@@ -1,344 +1,133 @@
-import {
-  Autocomplete,
-  Box,
-  Button,
-  Grid,
-  Paper,
-  TextField
-} from "@mui/material";
-import React from "react";
-import SaveIcon from "@mui/icons-material/Save";
-import { styled, TextareaAutosize } from "@mui/material";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { getStepContent } from "../components/newreg/getStepContent";
+import { Grid, Paper } from "@mui/material";
 
-const StyledTextArea = styled(TextareaAutosize)(({ theme }) => ({
-  backgroundColor: "transparent",
-  outline: "none",
-  borderRadius: theme.shape.borderRadius,
-  color: "inherit",
-  font: "inherit",
-  padding: theme.spacing(2),
-  width: "100%"
-}));
+const steps = ["Registration", "Vehicle Details", "Owner Details", "Confirm"];
 
-const NewReg = () => {
+export default function HorizontalLinearStepper() {
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [skipped, setSkipped] = React.useState(new Set());
+
+  const isStepOptional = (step) => {
+    return step === 1;
+  };
+
+  const isStepSkipped = (step) => {
+    return skipped.has(step);
+  };
+
+  const handleNext = () => {
+    let newSkipped = skipped;
+    if (isStepSkipped(activeStep)) {
+      newSkipped = new Set(newSkipped.values());
+      newSkipped.delete(activeStep);
+    }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped(newSkipped);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    console.log(data.get("Vehicle_Reg_Number"));
+  };
+
   return (
-    <Paper sx={{ px: 2, pb: 2 }}>
-      <Grid container alignItems="center" spacing={3}>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            label="Vehicle Reg Number"
-            value="542"
-            size="small"
-            disabled
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            label="Previous Reg Number"
-            value="542"
-            size="small"
-            disabled
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            id="product_name"
-            label="Vehicle PIN Number"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            id="product_qrcode"
-            label="Chassis Number(VlN)"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            id="product_bNum"
-            label="Engine Number"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Vehicle Make"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Vehicle Model"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Vehicle Colour"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Vehicle Tax Class"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Vehicle Fuel Type"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Type of Body"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Net Mass"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Gross Vehicle Mass"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Year of Manufacture"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Country of import Vehicle"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Vehicle Reg Status"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Date of Zimbabwe Reg"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Address"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="City/Town"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Vehicle"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Vehicle Restrictions/Admin marks"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Titleholder Surname"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Titleholder Name"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Titleholder/ID Passport Number"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Owner Surname"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Owner Name"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Owner ID/Passport Number"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Owner Phone Number"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Second Owner Surname"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Second Owner Name"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Date Issued"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Issuing Office"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            size="small"
-            label="Certificate Number"
-          />
-        </Grid>
-        <Grid item xs={4} lg={3}>
-          <Autocomplete
-            size="small"
-            variant="outlined"
-            id="product_category"
-            autoSelect
-            options={[
-              "Stimulants",
-              "Inhalants",
-              "Cannabinoids",
-              "Depressants",
-              "Opioids",
-              "Steroids",
-              "Hallucinogens",
-              "Prescription drugs"
-            ]}
-            renderInput={(params) => <TextField label="Category" {...params} />}
-          />
-        </Grid>
-
-        <Grid item xs={12} lg={9}>
-          <StyledTextArea
-            aria-label="minimum height"
-            minRows={2}
-            cols={13}
-            id="product_remarks"
-            placeholder="Remarks"
-          />
-        </Grid>
-      </Grid>
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
-        <div>
-          <Button
-            type="submit"
-            startIcon={<SaveIcon />}
-            variant="contained"
-            color="primary"
+    <Paper
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{
+        width: "100%",
+        p: 3,
+        minHeight: 440,
+        position: "relative",
+        borderRadius: 3
+      }}
+    >
+      <Stepper activeStep={activeStep}>
+        {steps.map((label, index) => {
+          const stepProps = {};
+          const labelProps = {};
+          if (isStepOptional(index)) {
+            labelProps.optional = (
+              <Typography variant="caption">Optional</Typography>
+            );
+          }
+          if (isStepSkipped(index)) {
+            stepProps.completed = false;
+          }
+          return (
+            <Step key={label} {...stepProps}>
+              <StepLabel {...labelProps}>{label}</StepLabel>
+            </Step>
+          );
+        })}
+      </Stepper>
+      {activeStep === steps.length ? (
+        <>
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            <Box sx={{ flex: "1 1 auto" }} />
+            <Button onClick={handleReset}>Save</Button>
+          </Box>
+        </>
+      ) : (
+        <>
+          <Box sx={{ mt: 6, px: 3, mb: 1 }}>
+            <Grid container alignItems="center" spacing={3}>
+              {getStepContent(activeStep)}
+            </Grid>
+          </Box>
+          <Box height={50} />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              pt: 2,
+              position: "absolute",
+              bottom: 24,
+              right: 24
+            }}
           >
-            Save
-          </Button>
-        </div>
-      </Box>
+            {!(activeStep === steps.length - 1) && (
+              <Button
+                color="inherit"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                sx={{ mr: 1 }}
+              >
+                Back
+              </Button>
+            )}
+            <Box sx={{ flex: "1 1 auto" }} />
+
+            {activeStep === steps.length - 1 ? (
+              <Button onClick={handleSubmit} variant="contained">
+                Save
+              </Button>
+            ) : (
+              <Button onClick={handleNext} variant="contained">
+                Next
+              </Button>
+            )}
+          </Box>
+        </>
+      )}
     </Paper>
   );
-};
-
-export default NewReg;
+}

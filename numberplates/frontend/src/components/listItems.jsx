@@ -7,6 +7,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
+import BuildCircleIcon from "@mui/icons-material/BuildCircle";
 import { Link } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 
@@ -25,6 +26,11 @@ const ListItems = [
     text: "Registered Vehicles",
     Icon: FactCheckIcon,
     path: "registered-vehicles"
+  },
+  {
+    text: "Vehicle Edit",
+    Icon: BuildCircleIcon,
+    path: "vehicle-edit"
   }
 ];
 
@@ -32,7 +38,7 @@ export const MainListItems = ({ path, open }) => {
   return ListItems.map((item, index) => {
     const ListButton = (
       <ListItemButton
-        key={index}
+        key={item.text + index}
         component={Link}
         to={item.path}
         selected={path === item.path}
